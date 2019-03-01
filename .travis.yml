@@ -7,7 +7,6 @@ matrix:
   include:
     - os: linux
       sudo: false
-      dist: trusty
       compiler: gcc
       env: CMAKE_CMD_OPTION="-DENABLE_COVERAGE=1"
 
