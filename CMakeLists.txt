@@ -14,9 +14,14 @@ option(ENABLE_TESTING "Turns on testing" OFF)
 set(CMAKE_CXX_STANDARD 14)
 include_directories(include)
 
+# Enable code testing with -DENABLE_TESTING=1
+if (ENABLE_TESTING OR ENABLE_COVERAGE)
+    enable_testing()
+    add_subdirectory(test)
+endif()
+
 # Enable code coverage with -DENABLE_COVERAGE
 if (ENABLE_COVERAGE)
-    enable_testing()
     set(CMAKE_BUILD_TYPE "Coverage")
     find_package(codecov)
     add_coverage(${PROJECT_NAME}_test)
@@ -27,12 +32,6 @@ endif()
 # Enable documentation with -DENABLE_DOC=1
 if (ENABLE_DOC)
     add_subdirectory(doc)
-endif()
-
-# Enable code testing with -DENABLE_TESTING=1
-if (ENABLE_TESTING OR ENABLE_COVERAGE)
-    enable_testing()
-    add_subdirectory(test)
 endif()
 
 add_subdirectory(src)
