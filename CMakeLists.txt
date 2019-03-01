@@ -16,8 +16,10 @@ include_directories(include)
 # Enable code coverage with -DENABLE_COVERAGE
 if (ENABLE_COVERAGE)
     set(CMAKE_BUILD_TYPE "Coverage")
-    include(CodeCoverage)
-    setup_target_for_coverage(${PROJECT_NAME}_coverage ${PROJECT_NAME}_test coverage)
+    find_package(codecov)
+    add_coverage(${PROJECT_NAME}_test)
+    list(APPEND LCOV_REMOVE_PATTERNS "/usr")
+    coverage_evaluate()
 endif()
 
 # Enable documentation with -DENABLE_DOC=1
