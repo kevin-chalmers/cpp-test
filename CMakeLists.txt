@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 project(cpp_test)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extern/cmake-codecov/cmake" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extern/CMake-codecov/cmake" ${CMAKE_MODULE_PATH})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../lib")
@@ -16,6 +16,7 @@ include_directories(include)
 
 # Enable code coverage with -DENABLE_COVERAGE
 if (ENABLE_COVERAGE)
+    enable_testing()
     set(CMAKE_BUILD_TYPE "Coverage")
     find_package(codecov)
     add_coverage(${PROJECT_NAME}_test)
