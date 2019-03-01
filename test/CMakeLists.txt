@@ -3,7 +3,6 @@ include_directories(${TEST_SOURCE_DIR}/src ${Boost_INCLUDE_DIRS})
 
 add_definitions(-DBOOST_TEST_DYN_LINK)
 add_executable(${PROJECT_NAME}_test test.cpp)
-add_coverage(${PROJECT_NAME}_test)
 target_link_libraries(${PROJECT_NAME}_test
         MyFoo
         ${Boost_FILESYSTEM_LIBRARY}
