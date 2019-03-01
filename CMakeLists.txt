@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 project(cpp_test)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/extern/CMake-codecov/cmake" ${CMAKE_MODULE_PATH})
-find_package(codecov)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../lib")
@@ -24,8 +23,8 @@ endif()
 # Enable code coverage with -DENABLE_COVERAGE
 if (ENABLE_COVERAGE)
     set(CMAKE_BUILD_TYPE "Coverage")
-    list(APPEND LCOV_REMOVE_PATTERNS "/usr")
-    coverage_evaluate()
+    include(CodeCoverage)
+    setup_target_for_coverage(${PROJECT_NAME}_coverage ${PROJECT_NAME}_test coverage)
 endif()
 
 # Enable documentation with -DENABLE_DOC=1
