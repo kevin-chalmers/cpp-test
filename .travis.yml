@@ -31,7 +31,8 @@ script:
 # Hook code coverage report with codecov.io
 after_success:
   # Creating report
-  - lcov --directory . --capture --output-file coverage.info # capture coverage info
+  - pwd
+  - lcov --directory build --capture --output-file coverage.info # capture coverage info
   - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
   - lcov --list coverage.info # debug info
   # Uploading report to CodeCov
