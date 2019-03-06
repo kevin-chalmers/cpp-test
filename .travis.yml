@@ -19,8 +19,6 @@ addons:
   apt:
     packages:
       - cmake
-      - libboost-all-dev
-      - libboost-test-dev
       - lcov
 
 script:

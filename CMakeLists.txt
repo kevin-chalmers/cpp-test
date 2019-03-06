@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.9)
 project(cpp_test)
 
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake ${CMAKE_MODULE_PATH})
+
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../lib")
@@ -17,6 +18,11 @@ include_directories(include)
 # Enable code testing with -DENABLE_TESTING=1
 if (ENABLE_TESTING OR ENABLE_COVERAGE)
     enable_testing()
+    # Prevent overriding the parent project's compiler/linker
+    # settings on Windows
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    add_subdirectory(extern/googletest)
+    include_directories(extern/googletest/googletest/include extern/googletest/googlemock/include)
     add_subdirectory(test)
 endif()
 

@@ -1,17 +1,21 @@
-//
-// Created by kevin on 01/03/19.
-//
+#include <vector>
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-#define BOOST_TEST_MODULE MyCMakeTest
-#include <boost/test/unit_test.hpp>
+TEST(SampleTest, Equal){
+    EXPECT_EQ(42, 42);
+}
 
-#include "foo.hpp"
+TEST(ContainerComparison, Equal){
+    const std::vector<int> a(2, 1);
+    const std::vector<int> b(2, 1);
 
-BOOST_AUTO_TEST_CASE(constructor_test)
-{
-    foo f;
-    BOOST_CHECK_EQUAL(f.x(), 42);
+    EXPECT_THAT(a, testing::ContainerEq(b));
+    EXPECT_THAT(a, testing::ContainerEq(b)); // doesn't work either
+}
 
-    foo f2{24};
-    BOOST_REQUIRE_EQUAL(f2.x(), 24);
+int main(int argc, char** argv){
+    ::testing::InitGoogleTest(&argc, argv);
+    int ret = RUN_ALL_TESTS();
+    return ret;
 }
